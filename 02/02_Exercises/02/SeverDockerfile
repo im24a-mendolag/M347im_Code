@@ -3,7 +3,7 @@
 #    1. Ubuntu 20.04, welches ohne Bestätigung das Betriebssystem updated
 #    2. den Webserver nginx installiert und alle Installationsdateien danach löscht
 #    3. den Port 80 offen legt
-#    4. per Default den Weberserver nginx mit den Parametern -g und "
+#    4. per Default den Webserver im Vordergrund starten und mit dem Terminal 
 # 3. Listen Sie sich das erstellte Image
 # 4. Starten Sie den Container und testen mit curl, ob dieser unter localhost:80 läuft
 # 5. Stoppen Sie den laufenden Container
