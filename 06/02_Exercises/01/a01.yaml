@@ -1,0 +1,54 @@
+# Aufgabe 1: Blog-Seite mit Wordpress und MySQL erstellen
+# Run with: docker-compose -f a01.yaml up -d
+#
+# Services
+services:
+  # Service database
+  db:
+    # set mysql as image
+    image: mysql:latest
+    # set container name
+    container_name: mysql_database
+    # set volumes for db_data
+    volumes:
+      - db_data:/var/lib/mysql
+    # restart always
+    restart: always
+    # set mysql root and standard password,
+    # database and user as environment
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: mendolag
+      MYSQL_PASSWORD: password
+
+  # Service word press
+  wordpress:
+    # depends on database service
+    depends_on:
+      - db
+    # set word press as image
+    image: wordpress:latest
+    # set container name
+    container_name: wd_frontend
+    # set volumes for wordpress_files
+    volumes:
+      - wordpress_files:/var/www/html
+    # set port inbound to 80, outbound to 8000
+    ports:
+      - "8000:80"
+    # restart always
+    restart: always
+    # set word press database-host, -user and -password
+    # database and user as environment
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: mendolag
+      WORDPRESS_DB_PASSWORD: password
+
+# used volumes are
+#  wordpress_files and
+#  db_data
+volumes:
+  wordpress_files:
+  db_data:

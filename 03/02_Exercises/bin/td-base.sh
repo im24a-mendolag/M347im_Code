@@ -10,16 +10,17 @@ fi
 
 function rmCont() {
   printf "Stop and remove container %s ..." ${container}
-#??
+  docker stop ${container}
   sleep 2
-#??
+  docker rm ${container}
+  docker ps -a
 }
 
 function rmImg() {
   printf "Remove image %s ..." ${image}
-#??
+  docker rmi ${image}
   sleep 1
-#??
+  docker images
 }
 
 case $1 in

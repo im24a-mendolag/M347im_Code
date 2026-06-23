@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "moodle-scrape": "^3.1.5"
+  },
+  "devDependencies": {
+    "jszip": "^3.10.1"
+  }
+}

@@ -1,20 +1,23 @@
 #!/bin/bash
 #
 # Load configuration
-#??
+SCRIPT_DIR=$(dirname "$0")
+CONFIG_FILE="${SCRIPT_DIR}/param.conf"
+VOLUME=vol_mendolag
 # check if configuration exists
-#??
-#??
+if [ ! -f "${CONFIG_FILE}" ]; then
   # print error message and exit script
-#??
-#??
-#??
+  echo "Error: Configuration file ${CONFIG_FILE} not found."
+  exit 1
+fi
 # import configuration
-#??
+source "${CONFIG_FILE}"
 # Build a dockerfile with tag -t
-#??
+docker build -t ${image} -f ${DOCKER_FILE} deploy/
 # List images
-#??
-# Run image with specific name
-#??
-#??
+docker images
+# Create named volume for appointment persistence
+docker volume create ${VOLUME}
+# Run image with specific name and volume mounted at /app
+docker run -d --name ${container} -p 5000:5000 -v ${VOLUME}:/app ${image}
+docker ps -a

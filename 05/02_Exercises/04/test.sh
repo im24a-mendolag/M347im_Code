@@ -3,17 +3,26 @@
 function callURL(){
   local PORT=5000
   local args="-f -s -S -k"
-#??
+  local URL="http://localhost:${PORT}"
   printf "%s\n" "Call frist app without any appointments ..."
-#??
+  curl ${args} "${URL}/api/termine"
+  echo ""
   sleep 2
   printf "%s\n" "Set an appointment ..."
-#??
-#??
-#??
+  curl ${args} -X POST -H "Content-Type: application/json" \
+    -d '{"salutation":"Mr","firstname":"Giovanni","lastname":"Mendola","appointment":"2026-06-10 09:00"}' \
+    "${URL}/api/termin"
+  echo ""
+  sleep 2
+  printf "%s\n" "Set a second appointment ..."
+  curl ${args} -X POST -H "Content-Type: application/json" \
+    -d '{"salutation":"Ms","firstname":"Anna","lastname":"Bauer","appointment":"2026-06-11 14:00"}' \
+    "${URL}/api/termin"
+  echo ""
   sleep 2
   printf "%s\n" "Show the appointment ..."
-#??
+  curl ${args} "${URL}/api/termine"
+  echo ""
 }
 
 # Clear screen
@@ -32,5 +41,6 @@ t)
   ;;
 *)
   echo "Incorrect action entered!"
-#??
-#??
+  exit 1
+  ;;
+esac

@@ -1,18 +1,17 @@
 # set OS-Version 20.04 as argument
-#??
+ARG OS_VERSION=20.04
 # Get Ubuntu OS
-#??
+FROM ubuntu:${OS_VERSION}
 # Run update, install curl and remove all installation files
-#??
-    #??
-    #??
+RUN apt-get update -y && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
 # Create a home-directory hmuster
-#??
+RUN mkdir -p /home/hmuster
 # Setup environmental variables USER, SHELL and LOGNAME.
 # Its value is not essential for this demo.
-#??
-#??
-#??
+ENV USER=hmuster
+ENV SHELL=/bin/bash
+ENV LOGNAME=hmuster
 # start bash
-#??
-
+CMD ["/bin/bash"]

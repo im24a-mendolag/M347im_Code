@@ -2,24 +2,25 @@
 # Containerize a simple flask deploy
 # ---------------------------------------------------------
 # Install ubuntu 18.04
-#??
+FROM ubuntu:18.04
 # Update and install python-pip,-dev and curl
 # Clean OS from installation files
-#??
-    #??
-    #??
-    #??
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-#??
-#??
 # Copy /deploy directory contents into the container at /app
-#??
+COPY . /app
 # Set the working directory
-#??
+WORKDIR /app
 # Install the Python packages specified in requirements.txt
-#??
+RUN pip3 install -r requirements.txt
+# Run the Flask app
+CMD ["python3", "app.py"]
 # Check every 10s if curl fails requesting the url.
 # If it fails then restart the container
-#??
-#??
-
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:5000/ || exit 1
+STOPSIGNAL SIGINT

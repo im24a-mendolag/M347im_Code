@@ -12,21 +12,21 @@ case $1 in
 1)
   printf "Stop and remove container %s and image %s" ${image} ${container}
   # stop container
-#??
+  docker stop ${container}
   sleep 3
-#??
-#??
+  docker rm ${container}
+  docker ps -a
   # Remove image
-#??
+  docker rmi ${image}
   # check removal
-#??
+  docker images
   ;;
 2)
   printf "Remove image %s" ${image}
   # Remove image
-#??
+  docker rmi ${image}
   # check removal of image
-#??
+  docker images
   ;;
 *)
   echo "Incorrect choice entered!"
